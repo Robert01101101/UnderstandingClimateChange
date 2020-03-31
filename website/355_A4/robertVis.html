@@ -1,0 +1,64 @@
+<DOCTYPE html>
+    <html lang="en">
+
+    <!-- ########################## HEAD ############################ -->
+    <head>
+        <meta charset="utf-8">
+        <title>Page 1</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Roboto+Slab:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+
+        <script type="text/javascript" src="js/d3.v4.js"></script>
+    </head>
+
+    <!-- ########################### BODY ############################ -->
+    <body>
+        <ul class="nav">
+            <li><a href="robertVis.html">Robert's Visualizations</a> </li>
+            <li><a href="index.html">Report</a> </li>
+            <li><a href="raduVis.html">Radu's Visualizations</a> </li>
+        </ul>
+
+        <div class="container">
+            <h1>
+                Visualization: CO2 emissions by region
+            </h1>
+
+            <div id="CH4" class="chart"></div>
+
+            <a href="http://www.sfu.ca/~rmichels/355_Data/annual-co-emissions-by-region.csv" class="btnDownload" target="_blank">Download Data</a>
+            <a href="js/chart4.js" class="btnDownload" target="_blank">Download Code</a>
+
+            <h2>Dimensions & Visual Mapping</h2>
+            <table>
+                <tr>
+                    <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                </tr>
+                <tr>
+                    <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Area line position on x-axis</td>
+                </tr>
+                <tr>
+                    <td>CO2 content</td><td>Annual total CO2 emissions, in tonnes (G=Giga, so 1Gt = 1,000,000,000t)</td><td>Quantitative (tonnes)</td><td>Interval (because a theoretic negative value is possible)</td><td>Area line position on y-axis</td>
+                </tr>
+                <tr>
+                    <td>Contributor</td><td>Country, region, industry or statistical difference</td><td>Categorical (String)</td><td>Nominal</td><td>Color of area</td>
+                </tr>
+            </table>
+
+            <h2>Visualization Idiom</h2>
+            <p>We chose to use a stacked area chart. This type of visual representation has similar properties to a line chart, but has advantages particularly for comparing the values of a stack of data. This allows us to introduce a third dimension: the contributor of emissions. We maintain the properties of a line chart (continuity on the x-Axis and a good representation of trends of our slope) and gain the ability to represent more data.</p>
+            
+            <h2>Addressing our Research Questions</h2>
+            <p>This visualization addresses our low-level question 1b) “Who causes our CO2 emissions?”. It expands the knowledge gained from our emissions line chart, by clearly detailing who contributes how much to emissions. The reason we decided to do this, is to de-abstractify the problem. Topics like climate change or CO2 emissions can be extremely abstract and therefore sometimes appear detached from reality for some. We hope that showing the contributors of CO2 emissions creates a visualization that seems more relatable to our lives.</p>
+
+            <h2>Process</h2>
+            <p>Creating this visualization was a rather complex task due to the stacks. To get started, I used the dataset Radu and I found. Once I had the dataset, the first step was to use Excel to prepare the data. In order to get it into a format I can use, I used Excel’s custom sort function. I first sorted by year, and then by entity (country name). This way the entries are sorted by year, and for each year the entities are sorted by a custom order I predefined (EU-28, Europe (others), United States, etc…). That is also the order used for the stack and for the labels. I was able to get some help from a <a href="https://www.d3-graph-gallery.com/graph/stackedarea_basic.html" target="_blank">D3 Graph Gallery tutorial</a>. This was especially useful for stacking the data and understanding how I can use keys to access it, once stacking is complete. Other than that I mostly referred to my notes from the early class tutorials. A problem I ran into later, when merging my work with Radu’s, was an issue with global variables. I realized that variables are global to the browser, so I wrapped all of our code in self-executing functions, so that variables from one chart do not interfere with code for another chart.<br><br>Data was gathered from: <a href="http://www.globalcarbonatlas.org/en/CO2-emissions" target="_blank">http://www.globalcarbonatlas.org/en/CO2-emissions</a></p>
+        </div>
+
+
+        <script src="js/global.js"></script>
+        <script src="js/chart4.js"></script>
+    </body>
+
+
+    </html>

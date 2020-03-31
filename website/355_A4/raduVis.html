@@ -1,0 +1,126 @@
+<DOCTYPE html>
+    <html lang="en">
+
+    <!-- ########################## HEAD ############################ -->
+    <head>
+        <meta charset="utf-8">
+        <title>Page 1</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Roboto+Slab:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+
+        <script type="text/javascript" src="js/d3.v4.js"></script>
+    </head>
+
+    <!-- ########################### BODY ############################ -->
+    <body>
+        <ul class="nav">
+            <li><a href="robertVis.html">Robert's Visualizations</a> </li>
+            <li><a href="index.html">Report</a> </li>
+            <li><a href="raduVis.html">Radu's Visualizations</a> </li>
+        </ul>
+
+        <div class="container">
+            <h1>Visualization 1: atmospheric CO2 concentration (historic)</h1>
+            <div id="CH1" class="chart"></div>
+
+            <a href="http://www.sfu.ca/~rmichels/355_Data/co2-concentration-long-term_noBC.csv" class="btnDownload" target="_blank">Download Data</a>
+            <a href="js/chart1.js" class="btnDownload" target="_blank">Download Code</a>
+
+            <h2>Dimensions & Visual Mapping</h2>
+            <table>
+                <tr>
+                    <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                </tr>
+                <tr>
+                    <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Line position on x-axis</td>
+                </tr>
+                <tr>
+                    <td>CO2 content</td><td>Atmospheric concentration of CO2, measured in parts per million (ppm)</td><td>Quantitative (ppm)</td><td>Radio</td><td>Line position on y-axis</td>
+                </tr>
+            </table>
+
+            <h2>Visualization Idiom</h2>
+            <p>We chose to use a line chart. This type of visual representation is ideal to show the slope of a trend across a continuous x-variable. Given the large range of dates we are looking at on the x-axis, and the fact that we want to see the slope of the CO2 content trend, this is an appropriate form of visualization.</p>
+            
+            <h2>Addressing our Research Questions</h2>
+            <p>This visualization begins addressing our low-level question 1a) “What is the relationship between CO2 content in the air and human caused CO2 emissions?”. Here, we take a first look at CO2 emissions since the year AD 1.</p>
+
+            <h2>Process</h2>
+            <p>After finding our data set, I loaded it into excel to format it, create visual aids and line diagrams based on data. Part of the formatting process involved discarding unusable data as our set contained dates far beyond our interest (ex. There were many dates before 1AD). Furthermore, there was an initial struggle getting started with D3. Our graph is based on the tutorial found <a href="https://www.d3-graph-gallery.com/graph/line_basic.html" target="_blank">HERE</a>. Lastly, I came across some some issues when it came to correctly formatting values, though I used to following solution to format the years:<br><br>“.tickFormat(d3.timeFormat("%Y")));”<br><br>Data was gathered from <a href="https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html" target="_blank">https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html</a></p>
+        </div>
+
+        <div class="container">
+            <h1>
+                Visualization 2: atmospheric CO2 concentration (recent)
+            </h1>
+
+            <div id="CH2" class="chart"></div>
+
+            <a href="http://www.sfu.ca/~rmichels/355_Data/co2-concentration-long-term_capToEmissions.csv" class="btnDownload" target="_blank">Download Data</a>
+            <a href="js/chart2.js" class="btnDownload" target="_blank">Download Code</a>
+
+            <h2>Dimensions & Visual Mapping</h2>
+            <table>
+                <tr>
+                    <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                </tr>
+                <tr>
+                    <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Line position on x-axis</td>
+                </tr>
+                <tr>
+                    <td>CO2 content</td><td>Atmospheric concentration of CO2, measured in parts per million (ppm)</td><td>Quantitative (ppm)</td><td>Radio</td><td>Line position on y-axis</td>
+                </tr>
+            </table>
+
+            <h2>Visualization Idiom</h2>
+            <p>We chose to use a line chart. This type of visual representation is ideal to show the slope of a trend across a continuous x-variable. Given the large range of dates we are looking at on the x-axis, and the fact that we want to see the slope of the CO2 content trend, this is an appropriate form of visualization.</p>
+            
+            <h2>Addressing our Research Questions</h2>
+            <p>This visualization continues addressing our low-level question 1a) “What is the relationship between CO2 content in the air and human caused CO2 emissions?”. Because it is important to be able to compare CO2 content in the air to CO2 emissions in order to answer that question, we created a copy of our first visualization with the dates matched to those of our available emissions data. To do so, we transformed the data using Excel, by removing all rows with data from years that do not have emissions data.</p>
+
+            <h2>Process</h2>
+            <p>Visualization 2 uses the same dataset as the first;  though for the sake of our project, the range of years along the x-axis is reduced to match the corresponding years for which we have emissions data. The general process being very similar to the first where I used excel to discard any data that was not required (all data prior to 1751). I then loaded the data with d3.csv() and began further formatting, creating scales and visual aids.’’<br><br>Data was gathered from <a href="https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html" target="_blank">https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html</a></p>
+        </div>
+
+        <div class="container">
+            <h1>
+                Visualization 3: CO2 emissions
+            </h1>
+
+            <div id="CH3" class="chart"></div>
+
+            <a href="http://www.sfu.ca/~rmichels/355_Data/annual-co-emissions-world.csv" class="btnDownload" target="_blank">Download Data</a>
+            <a href="js/chart3.js" class="btnDownload" target="_blank">Download Code</a>
+
+            <h2>Dimensions & Visual Mapping</h2>
+            <table>
+                <tr>
+                    <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                </tr>
+                <tr>
+                    <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Line position on x-axis</td>
+                </tr>
+                <tr>
+                    <td>CO2 content</td><td>Atmospheric concentration of CO2, measured in parts per million (ppm)</td><td>Quantitative (ppm)</td><td>Radio</td><td>Line position on y-axis</td>
+                </tr>
+            </table>
+
+            <h2>Visualization Idiom</h2>
+            <p>We chose to use a line chart. This type of visual representation is ideal to show the slope of a trend across a continuous x-variable. Given the large range of dates we are looking at on the x-axis, and the fact that we want to see the slope of the CO2 emissions trend, this is an appropriate form of visualization.</p>
+            
+            <h2>Addressing our Research Questions</h2>
+            <p>This visualization addresses our low-level question 1a) “What is the relationship between CO2 content in the air and human caused CO2 emissions?”.  This visualization attempts to answer that question by showing human-caused CO2 emissions. This allows the viewer to compare the emissions to the atmospheric CO2 concentration visualized earlier.</p>
+
+            <h2>Process</h2>
+            <p>Like the two prior visualizations, the third follows a very similar process. It is also based on the tutorial found <a href="https://www.d3-graph-gallery.com/graph/line_basic.html" target="_blank">HERE</a>. Aside from the steps detailed in the prior steps, this visualization uses a new dataset containing emissions. The emissions data contained both “world” emissions and “regional” emissions. I simply deleted the regional data to only work with the data that would be useful for our project - global emissions.
+            <br><br>Data was gathered from <a href="http://www.globalcarbonatlas.org/en/CO2-emissions" target="_blank">http://www.globalcarbonatlas.org/en/CO2-emissions</a></p>
+        </div>
+
+        <script src="js/global.js"></script>
+        <script src="js/chart1.js"></script>
+        <script src="js/chart2.js"></script>
+        <script src="js/chart3.js"></script>
+    </body>
+
+
+    </html></DOCTYPE>
