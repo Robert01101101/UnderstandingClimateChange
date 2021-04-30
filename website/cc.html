@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+    <!-- ################################################################################### HEAD ############################################################## -->
+    <head>
+        <meta charset="utf-8">
+        <title>Climate Change impact on Canadian Weather</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900|Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+        <link rel="icon" href="icon/favicon.ico">
+
+        <script type="text/javascript" src="js/d3.v4.js"></script>
+    </head>
+
+    <!-- ################################################################################### BODY ############################################################## -->
+    <body>
+        <nav>
+            <a href="index.html">About</a>
+            <a href="cc.html"  class="navCur">Understanding Climate Change</a>
+            <a href="ccImpacts.html">Understanding Climate Change Impact</a>
+            <a href="ccSummary.html">Climate Change Impact Summary</a>
+        </nav>
+
+
+        <div class="container">
+            <h1 id="CHARTTITLE">Atmospheric CO2 concentration (Historic)</h1>
+            
+            <div id="UNDERSTANDING_CC" class="chart"></div>
+
+            <div class="dropdown">
+          <button onclick="myFunction()" class="dropbtn">Select a Chart</button>
+          <div id="myDropdown" class="dropdown-content">
+            <button onclick="chart1()">Atmospheric CO2 concentration (Historic)</button>
+            <button onclick="chart2()">Atmospheric CO2 concentration (Recent)</button>
+            <button onclick="chart3()">Human CO2 emissions</button>
+            <button onclick="chart4()">Human CO2 emissions (by region)</button>
+            <button onclick="chart5()">Comparing emissions and atmospheric concentration</button>
+          </div>
+        </div>
+
+            <div class="btmContainer">
+                <div id="ch1_Btm">
+                    <div class="buttonBarFlexContainer">
+                        <a href="https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html" target="_blank">Data Source</a>
+                        <a href="data/co2-concentration-long-term_noBC.csv" target="_blank">Download Data</a>
+                        <a href="js/chart1.js" download>Download Code</a>
+                    </div>
+                    
+                    <h2>About this Chart</h2>
+                    <p>This chart shows the historical change in atmospheric concentration of CO2 (in parts per million) beginning at 30 A.D. The data shows a spike in CO2 concentration around 1840, roughly around the end of the industrial revolution.</p>
+
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Line position on x-axis</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 content</td><td>Atmospheric concentration of CO2, measured in parts per million (ppm)</td><td>Quantitative (ppm)</td><td>Ratio</td><td>Line position on y-axis</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>We chose to use a line chart. This type of visual representation is ideal to show the slope of a trend across a continuous x-variable. Given the large range of dates we are looking at on the x-axis, and the fact that we want to see the slope of the CO2 content trend, this is an appropriate form of visualization.</p>
+                </div>
+                <div id="ch2_Btm" class="hide">
+                    <div class="buttonBarFlexContainer">
+                        <a href="https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html" target="_blank">Data Source</a>
+                        <a href="data/co2-concentration-long-term_capToEmissions.csv" target="_blank">Download Data</a>
+                        <a href="js/chart2.js" download>Download Code</a>
+                    </div>
+                    
+                    <h2>About this Chart</h2>
+                    <p>This chart uses the same data as the historical chart, however, it is scoped down to show only the last three centuries. This is to provide an overall summary using the historic chart and focus on recent, relevant data using this chart.</p>
+
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Line position on x-axis</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 content</td><td>Atmospheric concentration of CO2, measured in parts per million (ppm)</td><td>Quantitative (ppm)</td><td>Ratio</td><td>Line position on y-axis</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>We chose to use a line chart. This type of visual representation is ideal to show the slope of a trend across a continuous x-variable. Given the large range of dates we are looking at on the x-axis, and the fact that we want to see the slope of the CO2 content trend, this is an appropriate form of visualization.</p>
+                </div>
+                <div id="ch3_Btm" class="hide">
+                    <div class="buttonBarFlexContainer">
+                        <a href="http://www.globalcarbonatlas.org/en/CO2-emissions" target="_blank">Data Source</a>
+                        <a href="data/annual-co-emissions-world.csv" target="_blank">Download Data</a>
+                        <a href="js/chart3.js" download>Download Code</a>
+                    </div>
+                    
+                    <h2>About this Chart</h2>
+                    <p>LThis chart depicts the annual, global CO2 emissions caused by humans in tonnes. It begins around 1950 and shows an almost exponential growth.</p>
+
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Line position on x-axis</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 emissions</td><td>Annual total CO2 emissions, in tonnes (G=Giga, so 1Gt = 1,000,000,000t)</td><td>Quantitative (tonnes)</td><td>Interval (because a theoretic negative value is possible)</td><td>Line position on y-axis</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>We chose to use a line chart. This type of visual representation is ideal to show the slope of a trend across a continuous x-variable. Given the large range of dates we are looking at on the x-axis, and the fact that we want to see the slope of the CO2 emissions trend, this is an appropriate form of visualization.</p>
+                </div>
+                <div id="ch4_Btm" class="hide">
+                    <div class="buttonBarFlexContainer">
+                        <a href="http://www.globalcarbonatlas.org/en/CO2-emissions" target="_blank">Data Source</a>
+                        <a href="data/annual-co-emissions-by-region.csv" target="_blank">Download Data</a>
+                        <a href="js/chart4.js" download>Download Code</a>
+                    </div>
+                    
+                    <h2>About this Chart</h2>
+                    <p>This chart takes the data from the over human emissions visualization and includes a regional distribution of causes. It features ten different regions along with a section to count for statistical differences. As shown, the United States has been a steady and impactful contributor to these emissions; in modern times, however, China dominates taking place as the region releasing the most emissions, followed closely by the US and the main portions of the European Union.</p>
+
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Area line position on x-axis</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 emissions</td><td>Annual total CO2 emissions, in tonnes (G=Giga, so 1Gt = 1,000,000,000t)</td><td>Quantitative (tonnes)</td><td>Interval (because a theoretic negative value is possible)</td><td>Area line position on y-axis</td>
+                        </tr>
+                        <tr>
+                            <td>Contributor</td><td>Country, region, industry or statistical difference</td><td>Categorical (String)</td><td>Nominal</td><td>Color of area</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>We chose to use a stacked area chart. This type of visual representation has similar properties to a line chart, but has advantages particularly for comparing the values of a stack of data. This allows us to introduce a third dimension: the contributor of emissions. We maintain the properties of a line chart (continuity on the x-Axis and a good representation of trends of our slope) and gain the ability to represent more data.</p>
+                </div>
+                <div id="ch5_Btm" class="hide">
+                    <div class="buttonBarFlexContainer">
+                        <a href="js/chart5.js" download>Download Code</a>
+                    </div>
+                    
+                    <h2>About this Chart</h2>
+                    <p>This visualization combines the recent  atmospheric CO2 concentration chart along with the overall human CO2 emissions chart. It plots both line charts onto the same visualization to show a correlation between the increasing CO2 concentration and human activity.</p>
+
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Area line position on x-axis</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 content</td><td>Atmospheric concentration of CO2, measured in parts per million (ppm)</td><td>Quantitative (ppm)</td><td>Ratio</td><td>Line position on y-axis (blue)</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 emissions</td><td>Annual total CO2 emissions, in tonnes (G=Giga, so 1Gt = 1,000,000,000t)</td><td>Quantitative (tonnes)</td><td>Interval (because a theoretic negative value is possible)</td><td>Line position on y-axis (orange)</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>We chose to use a grouped line chart. This type of visual representation has similar properties to a line chart, but has advantages particularly for comparing the trends of different datasets, which share one dimension. In our case, both datasets share the same timeline, but measure different values. We can easily use 2 different Y-Axis to represent these two separate dimensions.</p>
+                </div>
+            </div>
+            
+
+        </div>
+
+        <script src="js/global.js"></script>
+        <script src="js/chart1.js"></script>
+        <script src="js/chart2.js"></script>
+        <script src="js/chart3.js"></script>
+        <script src="js/chart4.js"></script>
+        <script src="js/chart5.js"></script>
+        <script src="js/dropdown.js"></script>
+    </body>
+
+
+    </html>

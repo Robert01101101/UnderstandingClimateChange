@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////// CO2 EMISSIONS BY ENTITY /////////////////////////////////////////////////////////////////
-var url = "http://www.sfu.ca/~rmichels/355_Data/annual-co-emissions-by-region.csv";
+var url = "data/annual-co-emissions-by-region.csv";
+
 
 
 //Function to keep everything local
 (function(){
-  //Custom margins
-  var margin = {top: 0, right: 280, bottom: 50, left: 140},
-    width = 1400 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
 
   // Append SVG object with defined margins. Append group.
-  var svg = d3.select("#CH4")
+  //var svg = d3.select("#CH4")
+  var svg = d3.select("#UNDERSTANDING_CC")
     .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .attr("id", "d3_CH4")
+      .attr("class", "hide")
     .append("g")
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
@@ -32,7 +32,7 @@ var url = "http://www.sfu.ca/~rmichels/355_Data/annual-co-emissions-by-region.cs
     var stackedData = d3.stack()
       .keys(mygroup)
       .value(function(d, key){
-        return d.values[key].co2 //retrieve co2 value
+        return d.values[key].emissions //retrieve co2 value
       })
       (sumstat)
 
@@ -42,6 +42,7 @@ var url = "http://www.sfu.ca/~rmichels/355_Data/annual-co-emissions-by-region.cs
         .range([ 0, width ]);
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")
+        .attr("class", "axisWhite")
         .call(d3.axisBottom(x)
           .tickFormat(d3.format("c")));
 
@@ -51,25 +52,55 @@ var url = "http://www.sfu.ca/~rmichels/355_Data/annual-co-emissions-by-region.cs
             "translate(" + (width/2) + " ," + 
                            (height + margin.bottom) + ")")
       .style("text-anchor", "middle")
+      .style("fill", colWhite)
       .text("Date");
 
 
     ///////////////////////////////////////// Y Axis
     var y = d3.scaleLinear()
-      .domain([0, d3.max(data, function(d) { return +d.co2; })])
+      .domain([0, d3.max(data, function(d) { return +d.emissions; })])
       .range([ height, 0 ]);
     svg.append("g")
+      .attr("class", "axisWhite")
       .call(d3.axisLeft(y)
         .tickFormat(d3.format(".0s")));
 
 
     var yLabels = ["Annual", "total CO2",  "emissions,", "in tonnes"];
-    yLabelText(yLabels, svg);
+    yLabelText(yLabels, svg, colWhite);
 
     // color palette
     var color = d3.scaleOrdinal()
       .domain(mygroups)
-      .range(['#5A77E8','#63ABFF','#62B385','#9DC96D','#EB985A','#E6C17E','#A274D4','#FF7A62','#55BCCC', "#95C25F",'#666666'])
+      .range(['#5A77E8','#63ABFF','#62B385','#9DC96D','#EB985A','#E6C17E','#A274D4','#FF7A62','#55BCCC', "#95C25F", colWhite])
+
+    // https://bl.ocks.org/d3noob/c506ac45617cf9ed39337f99f8511218
+      // gridlines in x axis function
+      function make_x_gridlines() {   
+          return d3.axisBottom(x)
+      }
+
+      // gridlines in y axis function
+      function make_y_gridlines() {   
+          return d3.axisLeft(y)
+      }
+
+          // add the X gridlines
+      svg.append("g")     
+          .attr("class", "gridLine")
+          .attr("transform", "translate(0," + height + ")")
+          .call(make_x_gridlines()
+              .tickSize(-height)
+              .tickFormat("")
+          )
+
+      // add the Y gridlines
+      svg.append("g")     
+          .attr("class", "gridLine")
+          .call(make_y_gridlines()
+              .tickSize(-width)
+              .tickFormat("")
+          )
 
     // Show the areas
     svg
@@ -87,6 +118,9 @@ var url = "http://www.sfu.ca/~rmichels/355_Data/annual-co-emissions-by-region.cs
 
 
 
+
+
+
       // Add one dot in the legend for each name.
       var size = 20;
       var padding = 50;
@@ -100,13 +134,13 @@ var url = "http://www.sfu.ca/~rmichels/355_Data/annual-co-emissions-by-region.cs
               .attr("y", lY)
               .attr("width", lW)
               .attr("height", lH)
-              .style("fill", "#eaeaea");
+              .style("fill", "#333")
       legend.selectAll("myrect")
         .data(mygroups)
         .enter()
         .append("rect")
           .attr("x", 400)
-          .attr("y", function(d,i){ return -5 + (mygroups.length-i)*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("y", function(d,i){ return -5 + (mygroups.length-i)*(size+5) - 10}) // 100 is where the first dot appears. 25 is the distance between dots
           .attr("width", size)
           .attr("height", size)
           .style("fill", function(d){ return color(d)})
@@ -117,7 +151,7 @@ var url = "http://www.sfu.ca/~rmichels/355_Data/annual-co-emissions-by-region.cs
         .enter()
         .append("text")
           .attr("x", 400 + size*1.2)
-          .attr("y", function(d,i){ return -5 + (mygroups.length-i)*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("y", function(d,i){ return -5 + (mygroups.length-i)*(size+5) + (size/2) - 10}) // 100 is where the first dot appears. 25 is the distance between dots
           .style("fill", function(d){ return color(d)})
           .text(function(d){ return d})
           .attr("text-anchor", "left")

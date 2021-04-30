@@ -1,72 +1,178 @@
-<DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
 
     <!-- ################################################################################### HEAD ############################################################## -->
     <head>
         <meta charset="utf-8">
-        <title>Page 1</title>
+        <title>Climate Change impact on Canadian Weather</title>
         <link rel="stylesheet" type="text/css" href="style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Roboto+Slab:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900|Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+        <link rel="icon" href="icon/favicon.ico">
 
         <script type="text/javascript" src="js/d3.v4.js"></script>
     </head>
 
     <!-- ################################################################################### BODY ############################################################## -->
     <body>
-        <ul class="nav">
-            <li><a href="robertVis.html">Robert's Visualizations</a> </li>
-            <li><a href="index.html">Report</a> </li>
-            <li><a href="raduVis.html">Radu's Visualizations</a> </li>
-        </ul>
+        <nav>
+            <a href="index.html" class="navCur">About</a>
+            <a href="cc.html">Understanding Climate Change</a>
+            <a href="ccImpacts.html">Understanding Climate Change Impact</a>
+            <a href="ccSummary.html">Climate Change Impact Summary</a>
+        </nav>
 
         <div class="container">
-            <h1>Recap: Goal of the Project</h1>
-            <p>Our Project attempts to provide tools for the purpose of weather data analysis. We aim to create an interactive visualization that enables intuitive analysis of climate change’s impact on Canadian weather. While it is not possible to directly correlate individual extreme weather events to climate change, it is possible to analyze patterns over time to find clear indications of climate change impact. That is why this area of topic is well suited for an analysis through an interactive visualization, as opposed to a static visualization.</p>
+            <h1>About</h1>
+            <p>This is a project developed by Robert Michels and Radu Orlandea.</p>
+            <p>The project was developed as part of IAT 355, taught as Simon Fraser University, by Prof. Chris Shaw, who is assisted by TA Ahmed Abu Zuraiq. IAT 355 provides students with an introduction to Visual Analytics. This project was the final project for that course, and had the goal of designing a set of linked visualizations that allow an analyst to ask questions that can be answered with a dataset. As Climate Change is a topic of high importance to us, we decided to develop such an analysis tool, to allow people without a statistics education to explore Climate Change data. Our hope is that it allows people to better understand this very abstract topic.</p>
+
+            <svg height="3" width="100%"  class="tmpHide" style="margin: 10rem 0 5rem 0">
+              <line x1="0%" y1="0" x2="100%" y2="0" style="stroke:white; stroke-width:3;" />
+            </svg>
+
+            <div class="btmContainer report">
+                <h1 style="text-align: center; width: 100%;">Report</h1>
+                <h2>Introduction</h2>
+                <h3>Scope</h3>
+                <p>Our Project attempts to provide tools for the purpose of weather data analysis. We aim to create an interactive visualization that enables intuitive analysis of climate change’s impact on Canadian weather. While it is not possible to directly correlate individual extreme weather events to climate change, it is possible to analyze patterns over time to find clear indications of climate change impact. That is why this area of topic is well suited for an analysis through an interactive visualization, as opposed to a static visualization.</p>
+                <h3>Users / Audience</h3>
+                <p>While prior knowledge on the topic of climate change will make understanding of our charts easier, we aim to create a website for a lay audience to understand the changes our planet is going through. Therefore, we suggest our targeted audience would be the general public, along with young adults – adults who would like to see the long-term effects of climate change.</p>
+                <h2>Problem / Domain Questions</h2>
+                <p>Overall, we would like to answer the following question: <br><b>What is the impact of Climate Change on Canadian Weather patterns?</b><br> To answer this question, we devised the following sub-component questions that can be asked and answered with our tool.</p>
+                <ol>
+                    <li>What are the contributing factors of climate change?</li>
+                        <ol>
+                            <li>How has the atmospheric CO2 concentration changed over the last two millennia? What point in time shows a large spike to that concentration?</li>
+                            <li>What is the relationship between CO2 content in the air and human caused CO2 emissions?</li>
+                            <li>Who or what causes our CO2 emissions?</li>
+                        </ol>
+                    <li>Since climate impacts weather, are there indications of Canadian weather behaving abnormally?</li>
+                        <ol>
+                            <li>Is there a noticeable change in temperature patterns?</li>
+                            <li>Is there a noticeable change in precipitation patterns?</li>
+                        </ol>
+                </ol>
+                <h2>Data</h2>
+                <p>Each chart on our website has links/references to the data sources, as well as information about the dimensions and visual idioms used. <br><br>Our process began by analyzing simple datasets of CO2 emissions and atmospheric CO2 concentration data. After that, we began looking into datasets gathered from Canadian weather stations. Initially we wanted to see if there was a correlation between climate change and extreme weather disasters as part of our analysis, however, we shifted gears to only analyze weather and climate data itself. This was the best approach, as the data was more readily available</p>
+                <h3>Data Cleaning</h3>
+                <ul>
+                    <li>Atmospheric CO2 concentration (Historic)</li>
+                    <ul><li>Trimmed dataset to years >0, as we had trouble formatting the “BC” dates.</li></ul>
+                    <li>Atmospheric CO2 concentration (Recent)</li>
+                    <ul><li>Trimmed dataset further, to start the same year as the emissions set (1752).</li></ul>
+                    <li>Human CO2 emissions</li>
+                    <ul><li>Dataset contained emissions by region, including the region “world”; showing combined, global data. Trimmed dataset to only include the global data (Filter).</li></ul>
+                    <li>Human CO2 emissions (by region)</li>
+                    <ul><li>Trimmed original dataset to only feature major key regions, which includes the data from their sub-regions (ex: EU-28 includes Germany) (Filter).</li>
+                        <li>Sorted by Year, THEN by entity.</li></ul>
+
+                    <li>Comparing emissions and atmospheric concentration</li>
+                    <ul><li>Created using datasets from two previous charts (Combination).</li></ul>
+                    <li>Canadian Weather Data</li>
+                    <ul><li>Original data had monthly summaries of individual weather stations (1844 of them) all over Canada. This was far too much information to process in the browser, therefore, thorough formatting was necessary.</li>
+                        <ul>
+                            <li>Step 1</li>
+                            <ul>
+                                <li>Delete all unneeded columns, containing irrelevant or unusable data.</li>
+                            </ul>
+                            <li>Step 2</li>
+                            <ul>
+                                <li>Our source data site can only create .csv files with 150,000 rows, however we required just under 600,000 rows of data. Therefore, we had to download 4  separate files. -> Merge all datasets into one file.</li>
+                            </ul>
+                            <li>Step 3</li>
+                            <ul>
+                                <li>Sorting our Data: by Year, THEN by Month, THEN by Province.</li>
+                            </ul>
+                            <li>Step 4</li>
+                            <ul>
+                                <li>Data Cleaning:</li>
+                                <li>Delete all rows containing cells with no data</li>
+                                <li>Delete all rows with less than 25 days of valid temperature and precipitation values (there was a column indicating the number of valid days)</li>
+                            </ul>
+                        </ul>
+                        <li>At this point, we tried to load the data with D3, but discovered that it was still too much to handle smoothly in-browser. The crucial step consuming too much compute power was the fact that we still had to calculate averages of weather stations by province, month and year, using d3.average(). Solution: Calculate provincial averages beforehand in Excel and delete individual station data.</li>
+                        <ul>
+                            <li>Step 5</li>
+                            <ul>
+                                <li>Use a marker column which checks when the province value changes, and adds a mark when that is the case.</li>
+                                <li>Use new columns to calculate averages for the range of values between marks -> average of weather station data per province of that month of that year.</li>
+                                <li>Delete the data from  individual weather stations and only keep the provincial averages (we now have one row per year / month / province).</li>
+                            </ul>
+                            <li>Step 6 (for the 4 Climate Change Impact Summary charts)</li>
+                            <ul>
+                                <li>Further processed Canadian weather data: calculated averages by year for the whole country only, deleted monthly and provincial data, as to minimize how much data needs to be handled in the browser (loaded 4 times for the 4 charts). Calculate absolute values as well (as this shows total change as compared to relative change).</li>
+                            </ul>
+                        </ul>
+                    </ul>
+                </ul>
+                <h2>Visualization Design</h2>
+                <p>Detailed justifications of our Design choices can be found under each chart. Overall, we used following guidelines in designing our visualizations:</p>
+                <ul>
+                    <li>The visualization must be simple to interpret for anybody.</li>
+                    <li>The visualization must be able to show time as a dimension, as we are interested in temporal trends.</li>
+                    <li>The visualization must not over-simplify the topic by ommitting important data.</li>
+                </ul>
+                <p>The website is designed in a way that encourages data exploration, but at the same time guides users to go down a linear path. Therefore, we first start by analyzing how CO2 emissions have increased and resulted in an increase in atmoshperic CO2 concentration. Then, we dive into a very visually satisfying and exploratory visualization of climate change impact. Finally, we end the path on a more comprehensible and summarized representation of the canadian weather data map.</p>
+                <p>To use the visualizations, you can first use the navigation bar at the top to view different sections. Each section has multiple charts grouped together, which can be accessed by fixed the dropdown menu on the top right. We hope that each chart is entirely intuitive to use, as we designed certain cues, icons, abbreviations and interactions so that they can be easily understood. Generally, all line charts show precise values when hovering the cursor. Furthermore, the Canadian weather data chart has advanced interaction and visualization controls on the left.</p>
+                <h2>Further Work</h2>
+                <p>Overall, we’re very happy with the results. However, our datasets are slightly scattered (different year ranges, mixing Canadian data & global data), therefore, the project as a whole is not as focused as it could be in regards to the design focus.</p>
+                <p>Specifically, there are some issues with the Canadian weather data map, which we feel like they could've been done better. The legend on the right is disconnected from the provincial data we want to look at - it functions as an information display panel rather than a tooltip connected to the cursor. As an advantage though, this provides very detailed data (up to 9 dimensions). Furthermore, our website is not responsive, therefore, it doesn't work well on small or slim monitors resulting in poor accessibility.</p>
+                <p>We have a list of improvements in mind that could be possible future improvements:</p>
+                <ul>
+                    <li>Expanding the ‘Canadian weather’ data set to include much earlier data, possibly starting similar to the world emissions dataset in the year of 1752. This would allow for an even better comparison and increase consistency.</li>
+                    <li>Reformatting the Canada legend to have more space. This would allow us to label things more clearly (such as "mean Temperature" instead of "tMean", which is more appropriate for our audience).</li>
+                    <li>Animations restart after stopping them -> Change so they continue from where they were paused.</li>
+                    <li>Temperature Anomaly Script causes non-critical bugs as a result of not drawing the entire range.</li>
+                    <li>Canada Weather Map accesses data by using recursive loops and if-statements to check whether the data matches a specified key (getValueByYear() & getValueByMonth()). This is likely not the most efficient way to implement what we need, perhaps D3 has specific solutions that are more efficient.</li>
+                    <li>As our TA rightly pointed out (thanks for the feedback!), the Canadian weather map and the line charts shown on the Climate Change Impact Summary page would make for a great brush application. However, we unfortunately didn't have time to implement this.</li>
+                </ul>
+                <h2>Conclusions</h2>
+                <p>This project was very interesting and a great way to learn about D3. Prior to this course we had not really considered how complicated visualizations are created, but it is indeed an interesting challenge, as it can't just be estimative work.</p>
+                <p>In terms of the subject matter, we have learned a lot about Climate Change and its specific impacts on Canada. We find these trends to be the most interesting:</p>
+                <ul>
+                    <li>Northern territories experience much more extreme warming than southern provinces.</li>
+                    <li>Temperatures are slowly increasing all over Canada.</li>
+                    <li>Precipitation change varies, however absolute precipitation changes show a clear trend of increased change.</li>
+                </ul>
+                <h2>References</h2>
+                <b>Code Resources Used</b><br>
+                <ul>
+                    <li>General D3 Help: <a target="_blank" href="https://www.d3-graph-gallery.com/index.html">https://www.d3-graph-gallery.com/index.html</a></li>
+                        <ul><li>We used this page for basic examples of almost all of our charts, and built on top of them.</li></ul>
+                    <li>Global Temperature Anomaly: <a target="_blank" href="http://bl.ocks.org/psthomas/raw/269d0bd87f41135c95564cc032110c2b/">http://bl.ocks.org/psthomas/raw/269d0bd87f41135c95564cc032110c2b/</a></li>
+                        <ul><li>This chart is based heavily on the existing D3 visualization at this link. More Details can be found in the description below the chart.</li></ul>
+                    <li>Canada JSON map: <a target="_blank" href="https://raw.githubusercontent.com/mdgnkm/SIG-Map/master/canada.json">https://raw.githubusercontent.com/mdgnkm/SIG-Map/master/canada.json</a> </li>
+                    <li>D3 v3 & v4 (v3 is only used for the Global Temperature Anomaly chart)</li>
+                </ul>
+
+                <br><b>Coding Help</b><br><br>
+                Canada Weather Chart
+                <ul> 
+                    <li>Understanding projection types: <a target="_blank" href="https://bl.ocks.org/d3indepth/f7ece0ab9a3df06a8cecd2c0e33e54ef">https://bl.ocks.org/d3indepth/f7ece0ab9a3df06a8cecd2c0e33e54ef</a></li>
+                    <li>D3 Nest: <a target="_blank" href="http://learnjsdata.com/group_data.html">http://learnjsdata.com/group_data.html</a></li>
+                    <li>Hover Map: <a target="_blank" href="https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html">https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html</a></li>
+                </ul>
+                General
+                <ul>
+                    <li>D3 Reference: <a target="_blank" href="https://github.com/d3/d3/blob/master/API.md">https://github.com/d3/d3/blob/master/API.md</a></li>
+                    <ul><li>We used this page a lot to understand things such as ColorScales, formatting, scales, etc.</li></ul>
+                    <li>Adding Gridlines: <a target="_blank" href="https://bl.ocks.org/d3noob/c506ac45617cf9ed39337f99f8511218">https://bl.ocks.org/d3noob/c506ac45617cf9ed39337f99f8511218</a></li>
+                    <li>Adding a Mouse Cursor: <a target="_blank" href="https://www.d3-graph-gallery.com/graph/line_cursor.html">https://www.d3-graph-gallery.com/graph/line_cursor.html</a></li>
+                    <li>Using d3.v3 and d3.v4 on the same page without interference between the scripts: <a target="_blank" href="https://stackoverflow.com/questions/44173693/using-different-d3-versions-on-same-html-page">https://stackoverflow.com/questions/44173693/using-different-d3-versions-on-same-html-page</a></li>
+                    <li>Adding radial Lines: <a target="_blank" href="http://stackoverflow.com/questions/18487780/how-to-make-a-radial-line-segment-using-d3v3-js">http://stackoverflow.com/questions/18487780/how-to-make-a-radial-line-segment-using-d3v3-js</a> </li>
+                    <li>Formatting Axis Labels: <a target="_blank" href="https://bl.ocks.org/d3noob/23e42c8f67210ac6c678db2cd07a747e">https://bl.ocks.org/d3noob/23e42c8f67210ac6c678db2cd07a747e</a></li>
+                    <li>D3 Color Scales: <a target="_blank" href="https://github.com/d3/d3-scale-chromatic">https://github.com/d3/d3-scale-chromatic</a></li>
+                </ul>
+                <br><b>Data Transformation Help</b><br>
+                <ul>
+                    <li>Merging multiple .CSV files: <a target="_blank" href="https://www.rondebruin.nl/win/s3/win021.htm">https://www.rondebruin.nl/win/s3/win021.htm</a></li>
+                    <li>Matching columns in Excel, where one dataset includes only part of the other: <a target="_blank" href="https://stackoverflow.com/questions/44724491/excel-how-do-i-compare-two-columns-of-different-length-and-extract-the-differ">https://stackoverflow.com/questions/44724491/excel-how-do-i-compare-two-columns-of-different-length-and-extract-the-differ</a></li>
+                    <li>Transforming Data in Excel:</li><ul>
+                    <li><a target="_blank" href="https://support.office.com/en-us/article/index-function-a5dcf0dd-996d-40a4-a822-b56b061328bd">https://support.office.com/en-us/article/index-function-a5dcf0dd-996d-40a4-a822-b56b061328bd</a></li>
+                    <li><a target="_blank" href="https://support.office.com/en-us/article/match-function-e8dffd45-c762-47d6-bf89-533f4a37673a">https://support.office.com/en-us/article/match-function-e8dffd45-c762-47d6-bf89-533f4a37673a</a></li>
+                    <li><a target="_blank" href="https://support.office.com/en-us/article/max-function-e0012414-9ac8-4b34-9a47-73e662c08098">https://support.office.com/en-us/article/max-function-e0012414-9ac8-4b34-9a47-73e662c08098</a></li></ul>
+                </ul>
+            </div>
         </div>
-
-        <div class="container">
-            <h1>Analytic Scope</h1>
-            <p>Our first step in designing a suitable interface was defining a set of research questions, each within different scopes. Our goal to communicate our findings to a layman required us to delve into much detail. In our current global situation, climate change is an important topic that impacts politics, economies and everyday life - essentially a topic which affects everyone. As such, we aim to create a platform that makes relevant data accessible to people without a background in data analytics or similar expertise .</p>
-
-            <p>
-            Our central research question is: <b>What is climate change’s (CC) impact on Canadian weather?</b>
-            <br><br>
-            With that as our start point, we devised the following subcomponent-questions:
-            <br><br>
-            <ol>
-                <li>What are the contributing factors of climate change?</li>
-                    <ol>
-                        <li>What is the relationship between CO2 content in the air and human caused CO2 emissions?</li>
-                        <li>Who causes our CO2 emissions?</li>
-                    </ol>
-                <li>Since climate impacts weather, are there indications of Canadian weather behaving abnormally?</li>
-                    <ol>
-                        <li>With sea ice expected to melt as a result of CC, is there a noticeable impact on ocean level patterns?</li>
-                        <li>Is there a noticeable change in temperature patterns?</li>
-                        <li>Is there a noticeable change in precipitation patterns?</li>
-                        <li>Is there a noticeable change in extreme weather patterns?</li>
-                    </ol>
-                <li>Is there a correlation between CO2 levels and Canadian weather abnormalities, which would indicate CC impact? If yes, what is it?</li>
-                    <ol>
-                        <li>Can we apply data used to answer previous questions, to find a statistical correlation between CO2 levels and weather abnormalities?</li>
-                    </ol>
-            </ol>
-            </p>
-        </div>
-
-        <div class="container">
-            <h1>Goal of Assignment 4</h1>
-            <p>
-                The goal of Assignment 4 was to get started with the implementation of our Project. Because of a lack of time we decided to focus on high-level question 1): “What are the contributing factors of climate change?”. The reason we chose to focus on this question is that it requires less complex datasets to answer. To answer it, we need to look at atmospheric CO2 concentration and at human-caused CO2 emissions. This data is less complex than the weather datasets we would need to answer high-level questions 2-3.
-            </p>
-       </div>
-
-
-        <script src="js/global.js"></script>
-        <script src="js/chart1.js"></script>
-        <script src="js/chart2.js"></script>
-        <script src="js/chart3.js"></script>
     </body>
-
-
-    </html></DOCTYPE>
+</html>

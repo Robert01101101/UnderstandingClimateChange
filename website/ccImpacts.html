@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+    <!-- ################################################################################### HEAD ############################################################## -->
+    <head>
+        <meta charset="utf-8">
+        <title>Climate Change impact on Canadian Weather</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900|Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+        <link rel="icon" href="icon/favicon.ico">
+
+        <script type="text/javascript" src="js/d3v3.js"></script>
+        <script type="text/javascript" src="js/d3.v4.js"></script> 
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    </head>
+
+    <!-- ################################################################################### BODY ############################################################## -->
+    <body>
+        <nav>
+            <a href="index.html">About</a>
+            <a href="cc.html">Understanding Climate Change</a>
+            <a href="ccImpacts.html"  class="navCur">Understanding Climate Change Impact</a>
+            <a href="ccSummary.html">Climate Change Impact Summary</a>
+        </nav>
+
+        
+
+        <div class="container">
+            <h1 id="CHARTTITLE">Canadian Weather Data (1981 - 2020)</h1>
+            <div id="canadaMapSliders">
+                <input type="range" name="mySliderY" id="mySliderY" min="1981" max="2020" value="2020">
+                <input type="range" name="mySliderM" id="mySliderM" min="1" max="471" value="471" class="hide">
+            </div>
+            <input type="range" name="mySlider" id="mySlider" min="1" max="166" value="1" class="hide">
+            <div id="canadaMapLegendLeft">
+                <div id="canadaMapLegendLeftInside">
+                    <div class="legendHeader">Time Interval</div>
+                    <form name="timeIntervalForm">
+                        <label class="lblCcontainer">Year
+                          <input type="radio" id="rbYear" value="Year" name="timeInterval" checked="checked">
+                          <span class="radiobtn"></span>
+                        </label>
+
+                        <label class="lblCcontainer">Month
+                          <input type="radio" id="rbMonth" value="Month" name="timeInterval">
+                          <span class="radiobtn"></span>
+                        </label>
+                    </form> 
+                    <div class="legendHeader">Color Mapping</div>
+                    <form name="colorMappingForm">
+                        <label class="lblCcontainer">Temperature Anomaly
+                          <input type="radio" id="rbTemperatureD" value="TemperatureD" name="colorMapping" checked="checked">
+                          <span class="radiobtn"></span>
+                        </label>
+
+                        <label class="lblCcontainer">Precipitation Anomaly
+                          <input type="radio" id="rbPercipitationD" value="PercipitationD" name="colorMapping">
+                          <span class="radiobtn"></span>
+                        </label>
+
+                        <label class="lblCcontainer">Temperature
+                          <input type="radio" id="rbTemperature" value="Temperature" name="colorMapping">
+                          <span class="radiobtn"></span>
+                        </label>
+                    
+                        <label class="lblCcontainer">Precipitation
+                          <input type="radio" id="rbPercipitation" value="Percipitation" name="colorMapping">
+                          <span class="radiobtn"></span>
+                        </label>
+                    </form> 
+
+                    <div class="colorOverview">
+                        <div class="colField" id="colMin">-2.5°C</div>
+                        <div class="colField" id="colMid">0</div>
+                        <div class="colField" id="colMax">+2.5°C</div>
+                    </div>
+                </div>
+            </div>
+            <div id="canadaMapBtns">
+              <button id="canadaMapShowCanadian" class="canadaMapBtn btnSelected">Canadian Data</button>
+              <button id="canadaMapShowProvincial" class="canadaMapBtn">Provincial Data</button>
+            </div>
+            <div id="d3_CANADAMAP" class="chart"></div>
+            <div id="d3_TEMPANOMALY" class="chart hide"></div>
+
+            <div class="dropdown">
+              <button onclick="myFunction()" class="dropbtn">Select a Chart</button>
+              <div id="myDropdown" class="dropdown-content">
+                <button onclick="chart1()">Canadian Weather Data</button>
+                <button onclick="chart2()">Global Temperature Anomaly</button>
+              </div>
+            </div>
+
+            <div class="btmContainer">
+                <div id="ch1_Btm">
+                    <div class="buttonBarFlexContainer">
+                        <a href="https://climate-change.canada.ca/climate-data/#/monthly-climate-summaries" target="_blank">Data Source</a>
+                        <a href="data/all_canadaClimateData.csv" target="_blank">Download Data</a>
+                        <a href="js/canadaMap.js" download>Download Code</a>
+                    </div>
+                    <h2>About this Chart</h2>
+                    <p>This visualization shows a map of Canada, and allows you to explore weather data at different points in time. Feel free to dive in and explore trends!</p>
+                    Abbreviations:
+                    <ul>
+                        <li>tDeviation = Mean Temperature deviation from Normals</li>
+                        <li>tMean = Mean Temperature</li>
+                        <li>tMean_Norm = Mean Temperature Normals</li>
+                        <li>pDeviation = Mean Precipitation deviation from Normals</li>
+                        <li>pMean = Mean Precipitation</li>
+                        <li>pMean_Norm = Mean Precipitation Normals</li>
+                    </ul>
+                    <p>Note: "Province" refers to both provinces and territories.</p>
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year, Month</td><td>Quantitative</td><td>Interval</td><td>Slider x-position, data loaded into map</td>
+                        </tr>
+                        <tr>
+                            <td>Province</td><td>Selected Province or Territory</td><td>Categorical</td><td>Nominal</td><td>Data loaded into "Provincial Data" tab. Data encoded into map.</td>
+                        </tr>
+                        <tr>
+                            <td>tDeviation</td><td>Average Temperature Deviation from Normals, measured in weather stations across selected region & timeframe</td><td>Quantitative (°C)</td><td>Interval</td><td>Color, label value in Legend</td>
+                        </tr>
+                        <tr>
+                            <td>tMean</td><td>Average Temperature, measured in weather stations across selected region & timeframe</td><td>Quantitative (°C)</td><td>Interval</td><td>Color, label value in Legend</td>
+                        </tr>
+                        <tr>
+                            <td>tMean_Norm</td><td>Average Temperature Normals, measured in weather stations across selected region</td><td>Quantitative (°C)</td><td>Interval</td><td>Color, label value in Legend</td>
+                        </tr>
+                        <tr>
+                            <td>pDeviation</td><td>Average Precipitation Deviation from Normals, measured in weather stations across selected region & timeframe</td><td>Quantitative (mm)</td><td>Interval</td><td>Color, label value in Legend</td>
+                        </tr>
+                        <tr>
+                            <td>pMean</td><td>Average Precipitation, measured in weather stations across selected region & timeframe</td><td>Quantitative (mm)</td><td>Ratio</td><td>Color, label value in Legend</td>
+                        </tr>
+                        <tr>
+                            <td>pMean_Norm</td><td>Average Precipitation Normals, measured in weather stations across selected region</td><td>Quantitative (mm)</td><td>Ratio</td><td>Color, label value in Legend</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>This chart was intended as an exciting, interesting visualization, which might be more interesting to an average audience. Particularly important for that is the heavy use of interaction, color and even animation. At the same time, it is also a useful tool to see geographical trends, and it makes for a real concrete representation of weather data. For example, one can quite easily explore how one's region may be impacted differently from other regions.</p>
+                </div>
+            
+            <div id="ch2_Btm" class="hide">
+                    <div class="buttonBarFlexContainer">
+                        <a href="https://www.metoffice.gov.uk/hadobs/hadcrut4/data/current/download.html" target="_blank">Data Source</a>
+                        <a href="data/HadCRUT.4.5.0.0.monthly_ns_avg.tsv" target="_blank">Download Data</a>
+                        <a href="js/tempAnomaly.js" download>Download Code</a>
+                    </div>
+                    <h2>About this Chart</h2>
+                    <p class="report">This visualization shows global temperature anomalies, over time, with each year's month rotating along the center.
+                    <br><br>Note: This chart builds on and is inspired by <a href="http://bl.ocks.org/psthomas/raw/269d0bd87f41135c95564cc032110c2b/" target="_blank">this chart</a> by Philip Thomas.</p>
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Month of the year is encoded in degrees by which a line's revolution has been completed. Label text.</td>
+                        </tr>
+                        <tr>
+                            <td>Temperature Anomaly</td><td>Global Temperature Anomaly, in °C.</td><td>Quantitative (°C)</td><td>Interval</td><td>Line distance from center. Line color.</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>This chart was intended as an exciting, interesting visualization, which might be more interesting to an average audience. Particularly important for that is the heavy use of interaction, color and animation. An interesting factor is that it is a bit unusual to visualize weather data like this, however, it is particularly good at showing the rapid acceleration of warming after the 70s.</p>
+            </div>
+            </div>
+            
+
+        </div>
+
+        <script src="js/global.js"></script>
+        
+        <script src="js/canadaMap.js"></script>
+        <script src="js/tempAnomaly.js"></script>
+        <script src="js/dropdown2.js"></script>
+
+        
+    </body>
+
+
+    </html>

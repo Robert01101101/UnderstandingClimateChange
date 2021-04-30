@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+    <!-- ################################################################################### HEAD ############################################################## -->
+    <head>
+        <meta charset="utf-8">
+        <title>Climate Change impact on Canadian Weather</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900|Montserrat:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+        <link rel="icon" href="icon/favicon.ico">
+
+        <script type="text/javascript" src="js/d3.v4.js"></script>
+    </head>
+
+    <!-- ################################################################################### BODY ############################################################## -->
+    <body>
+        <nav>
+            <a href="index.html">About</a>
+            <a href="cc.html">Understanding Climate Change</a>
+            <a href="ccImpacts.html">Understanding Climate Change Impact</a>
+            <a href="ccSummary.html"  class="navCur">Climate Change Impact Summary</a>
+        </nav>
+
+
+        <div class="container">
+            <h1 id="CHARTTITLE">Temperature Deviation</h1>
+            
+            <div id="SUMCHART" class="chart"></div>
+
+            <div class="dropdown">
+              <button onclick="myFunction()" class="dropbtn">Select a Chart</button>
+              <div id="myDropdown" class="dropdown-content">
+                <button onclick="chart1()">Temperature Deviation</button>
+                <button onclick="chart2()">Temperature Deviation (Absolute)</button>
+                <button onclick="chart3()">Precipitation Deviation</button>
+                <button onclick="chart4()">Precipitation Deviation (Absolute)</button>
+              </div>
+            </div>
+
+            <div class="btmContainer">
+                <div id="ch1_Btm">
+                    <div class="buttonBarFlexContainer">
+                        <a href="js/sumChartTD.js" download>Download Code</a>
+                    </div>
+                    <h2>About this Chart</h2>
+                    <p>This visualization compares Canadian Temperature Deviation with CO2 emissions. This completes our analysis, as it brings together an analysis of cause and impact.</p>
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Area line position on x-axis</td>
+                        </tr>
+                        <tr>
+                            <td>Temperature Deviation</td><td>Average Temperature Deviation from Normals, measured in weather stations across Canada</td><td>Quantitative (°C)</td><td>Interval</td><td>Line position on y-Axis (blue)</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 emissions</td><td>Annual total CO2 emissions, in tonnes (G=Giga, so 1Gt = 1,000,000,000t)</td><td>Quantitative (tonnes)</td><td>Interval (because a theoretic negative value is possible)</td><td>Line position on y-axis (orange)</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>We chose to use a grouped line chart. This type of visual representation has similar properties to a line chart, but has advantages particularly for comparing the trends of different datasets, which share one dimension. In our case, both datasets share the same timeline, but measure different values. We can easily use 2 different Y-Axis to represent these two separate dimensions.</p>
+                </div>
+
+                <div id="ch2_Btm" class="hide">
+                    <div class="buttonBarFlexContainer">
+                        <a href="js/sumChartTDA.js" download>Download Code</a>
+                    </div>
+                    <h2>About this Chart</h2>
+                    <p>This visualization compares Absolute Canadian Temperature Deviation with CO2 emissions. This completes our analysis, as it brings together an analysis of cause and impact. <br><br>Note: Absolute values behave different, as any deviation from the norm is registered. What this means is that we are not measuring how the values change, but if they change.</p>
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Area line position on x-axis</td>
+                        </tr>
+                        <tr>
+                            <td>Temperature Deviation (Absolute)</td><td>Absolute Average Temperature Deviation from Normals, measured in weather stations across Canada</td><td>Quantitative (°C)</td><td>Ratio</td><td>Line position on y-Axis (blue)</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 emissions</td><td>Annual total CO2 emissions, in tonnes (G=Giga, so 1Gt = 1,000,000,000t)</td><td>Quantitative (tonnes)</td><td>Interval (because a theoretic negative value is possible)</td><td>Line position on y-axis (orange)</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>We chose to use a grouped line chart. This type of visual representation has similar properties to a line chart, but has advantages particularly for comparing the trends of different datasets, which share one dimension. In our case, both datasets share the same timeline, but measure different values. We can easily use 2 different Y-Axis to represent these two separate dimensions.</p>
+                </div>
+
+                <div id="ch3_Btm" class="hide">
+                    <div class="buttonBarFlexContainer">
+                        <a href="js/sumChartPD.js" download>Download Code</a>
+                    </div>
+                    <h2>About this Chart</h2>
+                    <p>This visualization compares Canadian Precipitation Deviation with CO2 emissions. This completes our analysis, as it brings together an analysis of cause and impact.</p>
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Area line position on x-axis</td>
+                        </tr>
+                        <tr>
+                            <td>Precipitation Deviation</td><td>Average Precipitation Deviation from Normals, measured in weather stations across Canada</td><td>Quantitative (mm)</td><td>Interval</td><td>Line position on y-Axis (blue)</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 emissions</td><td>Annual total CO2 emissions, in tonnes (G=Giga, so 1Gt = 1,000,000,000t)</td><td>Quantitative (tonnes)</td><td>Interval (because a theoretic negative value is possible)</td><td>Line position on y-axis (orange)</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>We chose to use a grouped line chart. This type of visual representation has similar properties to a line chart, but has advantages particularly for comparing the trends of different datasets, which share one dimension. In our case, both datasets share the same timeline, but measure different values. We can easily use 2 different Y-Axis to represent these two separate dimensions.</p>
+                </div>
+
+                <div id="ch4_Btm" class="hide">
+                    <div class="buttonBarFlexContainer">
+                        <a href="js/sumChartPDA.js" download>Download Code</a>
+                    </div>
+                    <h2>About this Chart</h2>
+                    <p>This visualization compares Absolute Canadian Precipitation Deviation with CO2 emissions. This completes our analysis, as it brings together an analysis of cause and impact. <br><br>Note: Absolute values behave different, as any deviation from the norm is registered. What this means is that we are not measuring how the values change, but if they change.</p>
+                    <h2>Data Dimensions & Visual Mapping</h2>
+                    <table>
+                        <tr>
+                            <th>Dimension</th><th>Description</th><th>Type</th><th>Scale</th><th>Visual Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Date</td><td>Year</td><td>Quantitative (Year)</td><td>Interval</td><td>Area line position on x-axis</td>
+                        </tr>
+                        <tr>
+                            <td>Precipitation Deviation (Absolute)</td><td>Absolute Average Precipitation Deviation from Normals, measured in weather stations across Canada</td><td>Quantitative (mm)</td><td>Ratio</td><td>Line position on y-Axis (blue)</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 emissions</td><td>Annual total CO2 emissions, in tonnes (G=Giga, so 1Gt = 1,000,000,000t)</td><td>Quantitative (tonnes)</td><td>Interval (because a theoretic negative value is possible)</td><td>Line position on y-axis (orange)</td>
+                        </tr>
+                    </table>
+
+                    <h2>Visualization Design</h2>
+                    <p>We chose to use a grouped line chart. This type of visual representation has similar properties to a line chart, but has advantages particularly for comparing the trends of different datasets, which share one dimension. In our case, both datasets share the same timeline, but measure different values. We can easily use 2 different Y-Axis to represent these two separate dimensions.</p>
+                </div>
+            </div>
+            
+
+        </div>
+
+        <script src="js/global.js"></script>
+        <script src="js/sumChartTD.js"></script>
+        <script src="js/sumChartTDA.js"></script>
+        <script src="js/sumChartPD.js"></script>
+        <script src="js/sumChartPDA.js"></script>
+        <script src="js/dropdown3.js"></script>
+    </body>
+
+
+    </html>

@@ -1,0 +1,5 @@
+1) Use normal mean temp, normal p, mean temp and p from monthly sums
+2) Delete all which do not have data or have less than 26 valid days
+	a) goto special, blanks, ctrl - , rows
+	b) sort by days with valid data, delete with less than 26 days
+3) Sort by: year, month, prov (sml to lrg, A-z)

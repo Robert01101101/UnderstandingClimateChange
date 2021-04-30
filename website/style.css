@@ -1,41 +1,126 @@
 /*============================================================== GLOBAL LAYOUT  ====================================================*/
+:root {
+  --colWhite: #C4C4C4;
+  --colBack: #191919;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
-    font-weight: 400;
-    color: dimgrey;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--colWhite);
+    background-color: #191919;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    width: 80%;
+    color: #C4C4C4;
 }
 
 /*-------------------------------------------------------------- Nav Bar */
-.nav {
+nav {
+    text-align: left;
+    display: table;
+    width: 100%;
+    padding: 0 calc(calc(100% - 1500px)/2);
+    border-bottom: .5px solid #555;
+}
+
+nav > a {
+    display: inline-block;
+    padding: 20px 20px;
+    color: #C4C4C4;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+nav > a:first-of-type {
+    margin-left: -20px;
+}
+
+nav > a {
+    text-decoration: none;
+    transition: .2s;
+}
+
+nav > a:hover {
+    text-decoration: none;
+    background-color: #333;
+}
+
+.navCur{
+    color: #FF6C5C;
+}
+
+div > svg {
+  position: relative;
+  z-index: 1;
+}
+
+/*-------------------------------------------------------------- CONTAINER */
+.container {
+    margin: 2rem 10%;
+    padding-bottom: 5rem;
+    z-index: 1;
+}
+
+.container h2 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    background-color: #F5F5F5;
-    color: #F5F5F5;
-    list-style: none;
-    text-align: center;
-    padding: 20px 0 20px 0;
+    margin-top: 4rem;
 }
 
-.nav > li {
-    display: inline-block;
-    padding-left: 100px;
+.btmContainer {
+    margin: 2rem 30%;
+    padding-bottom: 5rem;
 }
 
-.nav > li:first-of-type {
-    padding-left: 0;
+.btmContainer a {
+  background-color: transparent;
+  color: #C4C4C4;
+  padding: 16px;
+  font-size: 16px;
+  border: 1px solid #C4C4C4;
+  cursor: pointer;
+  transition: .2s;
 }
 
-.nav > li > a {
-    text-decoration: none;
-    color: dimgrey;
+.headerFlexContainer {
+    display: flex;
+    flex-direction: row;
+     justify-content: space-between;
+     align-items: flex-start;
+     position: relative;
 }
 
-.nav > li > a:hover {
-    text-decoration: none;
-    color: black;
+.headerFlexContainer h1 {
+  margin-top: 0;
 }
+
+.buttonBarFlexContainer {
+    display: flex;
+    flex-direction: row;
+     justify-content: space-between;
+     align-items: flex-start;
+}
+.buttonBarFlexContainer a {
+     flex-grow: 1;
+     text-align: center;
+     text-decoration: none;
+}
+.buttonBarFlexContainer a:hover {
+     background-color: #C44A3D;
+     color: white;
+}
+
+.buttonBarFlexContainer a:not(:last-of-type) {
+  margin-right: 2rem;
+}
+
 
 /*============================================================== PAGE-SPECIFIC LAYOUT  ====================================================*/
 /*-------------------------------------------------------------- Home */
@@ -52,23 +137,6 @@ body {
 
 }
 
-/*-------------------------------------------------------------- CONTAINER */
-.container {
-    background: #ffffff;
-    margin: 10rem 30%;
-    padding-bottom: 5rem;
-}
-
-.container h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-}
-
-.container h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    margin-top: 4rem;
-}
 
 /*-------------------------------------------------------------- Chart */
 .chart > svg {
@@ -80,14 +148,182 @@ body {
 }
 
 .chart {
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
 }
+
+
+.gridLine path {
+  opacity: 0;
+}
+
+.gridLine text {
+  opacity: 0;
+}
+
+
+.gridLine line {
+  stroke: var(--colWhite);
+  opacity: .2;
+}
+
+/*-------------------------------------------------------------- Canada Map Legend Left */
+#canadaMapLegendLeft {
+  background-color: #333;
+  height: 350px;
+  width: 230px;
+  position: absolute;
+  left: calc(calc(100% - 1500px)/2 + 30px);
+  top: calc(2rem + 40px + 1rem + 2em + 0.67em + 0.67em + 3rem + 100px);
+  z-index: 250;
+}
+
+.legendHeader {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.legendHeader:not(:first-of-type) {
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 22px;
+}
+
+#canadaMapLegendLeft #canadaMapLegendLeftInside {
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Customize the label (the container) */
+.lblCcontainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.lblCcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.radiobtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.lblCcontainer:hover input ~ .radiobtn {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.lblCcontainer input:checked ~ .radiobtn {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radiobtn:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.lblCcontainer input:checked ~ .radiobtn:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.lblCcontainer .radiobtn:after {
+  top: 4px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+}
+
+/*-------------------------------------------------------------- Canada Map Buttons */
+#canadaMapBtns {
+  position: absolute;
+  right: calc(calc(100% - 1500px)/2 + 6rem);
+  top: calc(2rem + 40px + 1rem + 2em + 0.67em + 0.67em + 3rem + 100px + 300px);
+  z-index: 240;
+}
+
+.canadaMapBtn {
+  background-color: #191919;
+  color: #C4C4C4;
+  padding: 8px;
+  border: 1px solid #C4C4C4;
+  cursor: pointer;
+  transition: .2s;
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+/* Dropdown button on hover & focus */
+.canadaMapBtn:hover, .canadaMapBtn.btnSelected {
+  background-color: steelblue;
+  color: white;
+  cursor: pointer;
+}
+
+.highlightPbtn {
+  background-color: #428044;
+  color: white;
+}
+
+.canadaMapBtn:focus {outline:0;}
+
+.colorOverview {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.colField {
+  width: 4rem;
+  height: 1.5rem;
+  border: 1px solid var(--colBlack);
+  text-align: center;
+  color: var(--colBack);
+}
+
+.colField:nth-child(odd) {
+  color: var(--colWhite);
+}
+
 
 /*============================================================== SPECIFIC ITEMS  ====================================================*/
 /*-------------------------------------------------------------- Tables */
 table {
   border-collapse: collapse;
   border: 1px solid #ddd;
+  color: var(--colWhite);
 }
 
 th, td {
@@ -96,7 +332,7 @@ th, td {
 }
 
 th {
-  background-color: #ddd;
+  background-color: #333;
   text-align: left;
   font-family: 'Montserrat';
 }
@@ -155,4 +391,387 @@ ol ol {
 
 li {
     padding-bottom: .25rem;
+}
+
+
+/*-------------------------------------------------------------- Overlay */
+.tutorialOverlay {
+    opacity: 1;
+    transition: 1s opacity;
+}
+
+.tutorialOverlay.hideOverlay {
+    opacity: 0;
+    /*transition: none;*/
+}
+
+
+
+
+
+/*============================================================== D3 STYLING  ====================================================*/
+.axisBlue line{ stroke: #81B4DE; } .axisBlue path{ stroke: #81B4DE; } .axisBlue text{ fill: #81B4DE;}  
+
+.axisOrange line{ stroke: #D16A32; } .axisOrange path{ stroke: #D16A32; } .axisOrange  text{ fill: #D16A32; }  
+
+.axisWhite line{ stroke: #C4C4C4; } .axisWhite path{ stroke: #C4C4C4; } .axisWhite  text{ fill: #C4C4C4; }  
+
+.hide {
+    display: none;
+}
+
+
+
+
+
+
+
+/*============================================================== DROPDOWN  ====================================================*/
+/* Dropdown Button */
+.dropbtn {
+  background-color: #191919;
+  color: #C4C4C4;
+  padding: 18.5px;
+  border: 1px solid #C4C4C4;
+  cursor: pointer;
+  transition: .2s;
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: steelblue;
+  color: white;
+  outline:0;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: fixed;
+  right: 10%;
+  top: calc(2rem + 40px + 1rem + 0.67em);
+  display: inline-block;
+  float: right;
+  z-index: 250;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0px;
+  top: calc(39px + 1rem + 5px);
+  background-color: steelblue;
+  min-width: 200px;
+  /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+  z-index: 250;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  color: white;
+  background-color: steelblue;
+  border: none;
+  
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  z-index: 255;
+  font-family: Lato, sans-serif;
+}
+
+.dropdown-content button:not(:first-of-type) {
+  border-top: 1px solid var(--colBack);
+}
+
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {background-color: #71B6E3; cursor: pointer;}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*============================================================== TEMP ANOMALY STYLING  ====================================================*/
+.title {
+    font-size: 26px;  /*28px*/
+    fill: #C4C4C4; /*#4F4F4F;*/
+    font-weight: 300;
+    text-anchor: start;
+}
+
+.subtitle {
+    font-size: 14px;
+    fill: #AAAAAA;
+    font-weight: 300;
+    text-anchor: start;
+}
+
+.credit {
+    font-size: 12px;
+    fill: #AAAAAA;
+    font-weight: 300;
+    text-anchor: start;
+}
+
+.axis path,
+.axis tick,
+.axis line {
+    fill: none;
+    stroke: none;
+    /*shape-rendering: crispEdges;*/
+    shape-rendering: geometricPrecision;
+    /*shape-rendering: auto;*/
+}
+
+.axis text {
+    font-size: 12px;
+    fill: #AAAAAA;
+    font-weight: 400;
+}
+
+.legendTitle {
+    font-size: 14px;
+    fill: #AAAAAA;  /*#4F4F4F;*/
+    font-weight: 300;
+}
+
+.january {
+    font-size: 14px;
+    text-anchor: start;
+    font-weight: 300;
+    fill: #AAAAAA;
+}
+
+.yearText {
+    font-size: 18px;
+    text-anchor: start;
+    font-weight: 300;
+    fill: #AAAAAA;
+}
+
+.yearLine {
+    stroke: #AAAAAA;
+}
+
+.axisText {
+    fill: #C4C4C4;
+    font-size: 11px;
+    font-weight: 300;
+    text-anchor: middle;
+}
+
+.axisCircles {
+    fill: none;
+    stroke: #E8E8E8;
+    stroke-width: 1.25px;  /* 1px */
+    /*shape-rendering: geometricPrecision;*/
+    /*shape-rendering: crispEdges;*/
+    shape-rendering: auto;
+}
+.line {
+    fill: none;
+    /*stroke: red;*/  /*lightgreen;*/
+    stroke-width: 2.3px;  /*1.5px; 1.25px 2.5px 2.75*/
+    /*shape-rendering: crispEdges;*/
+    shape-rendering: geometricPrecision;
+}
+.path {
+    /*stroke: steelblue;*/
+    fill: none;
+    stroke-width: 3px;
+}
+
+.play {
+    font: 500 35px sans-serif;  /* 40px */
+    fill: #e5e5e5; 
+    cursor: pointer;
+}
+.play:hover {
+    fill: #ccc;
+}
+
+/*============================================================== Slider ==*/
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+  position: relative;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+
+/*----------------------------------------------------- Thumb */
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 24px;
+  width: 24px;
+  text-align: center;
+  border-radius: 50px;
+  background: var(--colWhite);
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 24px;
+  width: 24px;
+  border-radius: 50px;
+  background: var(--colWhite);
+  cursor: pointer;
+
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -moz-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 24px;
+  width: 24px;
+  border-radius: 50px;
+  background: var(--colWhite);
+  cursor: pointer;
+
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/*----------------------------------------------------- Track */
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: none;
+  height: .4rem;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: .4rem;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: .4rem;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+input[type=range]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #367ebd;
+}
+
+
+.report a {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
 }
